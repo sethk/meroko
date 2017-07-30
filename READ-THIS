@@ -1,0 +1,76 @@
+This is Meroko, a hardware-level emulator of a Texas Instruments Explorer 1.
+This is the fault of Daniel Seagraves <dseagrav@lunar-tokyo.net>.
+I used some parts of Alastair Bridgewater's Nevermore emulator as reference.
+Brad Parker wrote the SDL code and rewrote the DISPATCH instruction and MMU.
+Jeffrey Katcher contributed code to make the SDL code work on FreeBSD.
+
+It doesn't work very well yet and is only tested on Linux and FreeBSD.
+
+I am a very uncreative person and I write bad code, this is why the name and
+implementation are so bad. I'm too impatient to read books, so I never learn
+the proper way to do things. My comments and structure are very bad.
+I didn't really intend to distribute this when I wrote it.
+
+Anyway, to get this to do something useful, you need the following:
+
+1) The set of ROM images from an Explorer 1 (Currently included) -
+   These go in the proms directory. They will be included until TI tells me
+   not to include them anymore.
+
+2) At least one hard-disk image from a real Explorer 1.
+   These go in /X1-DISKS and should be named "cX-dY.dsk"
+   where X is the channel number (0 is first)
+   and Y is the disk number (1-7?)
+
+   It expects c0-d0, c0-d1, and c1-d0. These coincide with three disks
+   dumped from a real E1, somewhere in net-land.
+   Right now you have to at least create a 0-byte file to represent each disk.
+
+   Until TI says otherwise, I will try to distribute the images to people who
+   can use them for useful things. Please ask for them.
+
+To actually run the emulator, you need to pre-setup a unix box to serve
+as your Explorer. It works in either SDL mode or Framebuffer mode. In SDL mode,
+the emulator will behave as just another X client on a host, and doesn't make 
+strange demands of the user. In framebuffer mode, it's intended to take over a
+Linux machine at the end of the boot process and effectively turn the PC into an
+Explorer. It tries to make the illusion that the host PC does not exist. Currently
+the framebuffer mode is only tested on the Linux console framebuffer but should be
+easily portable to any other 8-bit framebuffer. I prefer the framebuffer mode myself.
+To select modes, define DISPLAY_FB or DISPLAY_SDL in your Makefile. (You can't define
+both.)
+
+In framebuffer mode, you need to enable a framebuffer console bigger than 1024x808.
+(1280x1024 is vgamode 0x307, or 1152x864 is nice) and attach a keyboard. You WILL
+need some sort of remote access to the box as Meroko will grab the local keyboard
+and display, and they will be unusable to linux when the emulator exits.
+
+Edit the Makefile flags to suit your machine and say 'make'. It should compile
+with only a warning or two. I included two example Makefiles from machines
+I have tested this on. Make sure the FB_WIDTH and FB_HEIGHT are correct for your
+framebuffer.
+
+For framebuffer mode, make sure there is not any program running on tty7, echo a
+character to it to make it selectable, switch the console to tty7, and log in 
+your remote session. Run Meroko. It will try to get a keyboard and display 
+(and die if it can't), load it's ROM images, attach the disks to their respective files,
+and start at the ROM entry point.
+
+In either mode, Meroko uses an ncurses-based status display and it expects a 
+large screen there, too. It will try to get the CPU clock stable around 7.5 MIPS
+by manipulating a delay counter. 's' will single-step the CPU, 'g' will issue a GO,
+and 'h' will HALT it. Control-C will exit. 'd' dumps out a screenshot of the framebuffer 
+(in BMP format) and DUMP files containing the contents of memory and such.
+
+After a few seconds you should get display activity on the console. If you get
+garbage instead of words, you have the wrong video mode. Change modes, or
+reset the FB_WIDTH and FB_HEIGHT definitions in your Makefile.
+
+After the IO device tests are finished, you are prompted for a load option.
+Waiting or pressing D will perform a default load, which gets you lisp.
+The undocumented key 'G' will cause GDOS diagnostics to load.
+
+
+
+
+

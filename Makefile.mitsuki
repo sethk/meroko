@@ -1,0 +1,62 @@
+#
+#
+#
+
+#DISPLAY = SDL
+DISPLAY = FB
+
+ifeq ($(DISPLAY), FB)
+DEFINES = -DDISPLAY_FB
+endif
+
+ifeq ($(DISPLAY), SDL)
+DEFINES = -DDISPLAY_SDL
+LDISPLAY = -lSDL
+DISPLAY_OBJ = sdl.o
+endif
+
+CFLAGS= -O3 -ggdb -Wall -march=pentium3 -mfpmath=sse -mmmx -msse $(DEFINES) -DPS2MOUSE 
+# -DTRACELOG
+# -DENABLE_ENET
+# -DDEI_TRACELOG
+# -DTRACELOG2
+# -DI_PARITY_CHECK
+LFLAGS= -lncurses $(LDISPLAY)
+
+MEROKO_OBJ = meroko.o nubus.o raven_cpu.o nubus.o nupi.o mem8.o sib.o enet.o localbus.o\
+	$(DISPLAY_OBJ)
+
+all: meroko
+
+meroko: $(MEROKO_OBJ) 
+	gcc $(MEROKO_OBJ) -o meroko $(CFLAGS) $(LFLAGS)
+
+meroko.o: meroko.c meroko.h 
+	gcc -c meroko.c -o meroko.o -ggdb $(CFLAGS)
+
+raven_cpu.o: raven_cpu.c raven_cpu.h meroko.h localbus.h nubus.h nupi.h sib.h mem8.h
+	gcc -c raven_cpu.c -o raven_cpu.o $(CFLAGS)
+
+nubus.o: nubus.c nubus.h
+	gcc -c nubus.c -o nubus.o $(CFLAGS)
+
+localbus.o: localbus.c localbus.h
+	gcc -c localbus.c -o localbus.o $(CFLAGS)
+
+nupi.o: nupi.c nupi.h nubus.h
+	gcc -c nupi.c -o nupi.o $(CFLAGS)
+
+mem8.o: mem8.c mem8.h nubus.h localbus.h
+	gcc -c mem8.c -o mem8.o $(CFLAGS)
+
+sib.o: sib.c sib.h nubus.h
+	gcc -c sib.c -o sib.o $(CFLAGS)
+
+enet.o: enet.c enet.h nubus.h
+	gcc -c enet.c -o enet.o $(CFLAGS)
+
+sdl.o: sdl.c
+	gcc -c sdl.c $(CFLAGS)
+
+clean: 
+	rm -f *.o meroko *~

@@ -1,0 +1,59 @@
+KEY MAP FILE - DOCUMENTATION ONLY!
+
+The code doesn't necessarily DO this, but this is how I intend to lay out the framebuffer-mode keyboard.
+The idea is to try getting PC key labels at least close to their Explorer equivalents, not trying to match
+the original Explorer keyboard layout (because myself and I bet most other emulator users haven't ever seen
+or used the original Explorer keyboard)
+
+In framebuffer mode I may be able to use the stupid "internet" keys on "modern" keyboards for things, but I don't
+know if that's the case with SDL.
+
+PC KEY(S)     WHAT THEY (SHOULD) MAP TO
+
+MAIN LETTERS: Normally
+MAIN NUMBERS: Normally
+TILDE:        SYMBOL
+SHIFT:        Normally
+CONTROL:      Normally
+ARROWS:       Normally
+SPACE:        Normally
+
+ALT(ERNATE):  LEFT & RIGHT META
+WINDOWS-FLAG: LEFT & RIGHT SUPER
+WINDOWS-MENU: RIGHT-HYPER
+BACKSPACE:    RUBOUT
+CAPS-LOCK:    CAPS-LOCK
+F1-F4:        SYSTEM, NETWORK, STATUS, TERM
+F5-F8:        HELP, RESUME, BREAK, ABORT
+F9-F12:       CLEAR SCREEN,CLEAR INPUT,UNDO,END
+ESCAPE:       ESCAPE
+TAB:          TAB
+
+SYS-RQ:       LEFT
+SCROLL-LOCK:  MIDDLE
+PAUSE:        RIGHT
+
+INSERT:	      KP-F1
+HOME:         KP-F2
+PGUP:         KP-F3
+END:          KP-F4
+DELETE:       {
+PGDN:         }
+
+NUM-+:        NUM+
+NUM-MINUS:    NUM-MINUS
+NUM-*:        NUM=
+NUM-SLASH:    NUM-'
+NUM-LOCK:     NUM-TAB
+
+NEED KEYS FOR:
+LEFT-HYPER
+LEFT-SUPER
+NUM-SPACE
+LINEFEED
+MODE-LOCK
+ITALIC-LOCK (TI apparently did not use this key)
+BOLD-LOCK   (TI apparently did not use this key)
+
+
+

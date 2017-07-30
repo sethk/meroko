@@ -1,0 +1,63 @@
+#
+#
+#
+
+#DISPLAY = SDL
+DISPLAY = FB
+
+ifeq ($(DISPLAY), FB)
+DEFINES = -DDISPLAY_FB -DFB_WIDTH=1152 -DFB_HEIGHT=864
+CPU = athlon-xp
+endif
+
+ifeq ($(DISPLAY), SDL)
+DEFINES = -DDISPLAY_SDL
+LDISPLAY = -lSDL
+DISPLAY_OBJ = sdl.o
+CPU = pentium4
+endif
+
+CFLAGS= -O3 -ggdb -Wall -march=$(CPU) -mfpmath=sse -mmmx -msse $(DEFINES) -DPS2MOUSE
+# -DTRACELOG
+# -DENABLE_ENET
+# -DDEI_TRACELOG
+# -DI_PARITY_CHECK
+LFLAGS= -lncurses -lrt $(LDISPLAY) 
+
+MEROKO_OBJ = meroko.o localbus.o nubus.o raven_cpu.o nubus.o nupi.o mem8.o sib.o enet.o \
+	$(DISPLAY_OBJ)
+
+all: meroko
+
+meroko: $(MEROKO_OBJ) 
+	gcc $(MEROKO_OBJ) -o meroko $(CFLAGS) $(LFLAGS)
+
+meroko.o: meroko.c meroko.h 
+	gcc -c meroko.c -o meroko.o -ggdb $(CFLAGS)
+
+raven_cpu.o: raven_cpu.c raven_cpu.h meroko.h localbus.h nubus.h nupi.h sib.h mem8.h
+	gcc -c raven_cpu.c -o raven_cpu.o $(CFLAGS)
+
+nubus.o: nubus.c nubus.h
+	gcc -c nubus.c -o nubus.o $(CFLAGS)
+
+localbus.o: localbus.c localbus.h
+	gcc -c localbus.c -o localbus.o $(CFLAGS)
+
+nupi.o: nupi.c nupi.h nubus.h
+	gcc -c nupi.c -o nupi.o $(CFLAGS)
+
+mem8.o: mem8.c mem8.h localbus.h nubus.h
+	gcc -c mem8.c -o mem8.o $(CFLAGS)
+
+sib.o: sib.c sib.h nubus.h
+	gcc -c sib.c -o sib.o $(CFLAGS)
+
+enet.o: enet.c enet.h nubus.h
+	gcc -c enet.c -o enet.o $(CFLAGS)
+
+sdl.o: sdl.c
+	gcc -c sdl.c $(CFLAGS)
+
+clean: 
+	rm -f *.o meroko *~
