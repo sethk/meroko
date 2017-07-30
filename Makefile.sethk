@@ -1,0 +1,71 @@
+#
+#
+#
+
+DISPLAY = SDL
+#DISPLAY = FB
+
+ifeq ($(DISPLAY), FB)
+DEFINES = -DDISPLAY_FB -DPS2MOUSE
+endif
+
+ifeq ($(DISPLAY), SDL)
+DEFINES = -DDISPLAY_SDL -include SDL_main.h -DFB_WIDTH=1024 -DFB_HEIGHT=864 `sdl-config --cflags`
+LDISPLAY = `sdl-config --libs`
+DISPLAY_OBJ = sdl.o
+endif
+
+#DEFINES+= -DENABLE_ENET
+CFLAGS=  -O3 -ggdb -Wall $(DEFINES)
+#CFLAGS= -O3 -ggdb -Wall -march=pentium3 -mfpmath=sse -mmmx -msse $(DEFINES)
+# -DTRACELOG
+# -DDEI_TRACELOG
+# -DTRACELOG2
+# -DI_PARITY_CHECK
+LFLAGS= -lncurses $(LDISPLAY)
+
+MEROKO_OBJ = meroko.o nubus.o raven_cpu.o nubus.o nupi.o mem8.o sib.o enet.o localbus.o\
+	$(DISPLAY_OBJ)
+
+all: meroko
+
+meroko: $(MEROKO_OBJ) 
+	$(CC) $(MEROKO_OBJ) -o meroko $(CFLAGS) $(LFLAGS)
+
+#enet.h: enet.c
+#	makeheaders enet.c
+
+#localbus.h: localbus.c
+#	makeheaders localbus.c
+
+#mem8.h: mem8.c
+#	makeheaders mem8.c
+
+#meroko.h: meroko.c
+#	makeheaders meroko.c
+
+#nubus.h: nubus.c
+#	makeheaders nubus.c
+
+#nupi.h: nupi.c
+#	makeheaders nupi.c
+
+#raven_cpu.h: raven_cpu.c
+#	makeheaders raven_cpu.c
+
+#sdl.h: sdl.c
+#	makeheaders sdl.c
+
+#sib.h: sib.c
+#	makeheaders sib.c
+
+depend::
+	$(CC) -M $(CFLAGS) *.c > .depend
+
+include .depend
+
+tags::
+	ctags *.[ch]
+
+clean: 
+	rm -f *.o meroko *~
