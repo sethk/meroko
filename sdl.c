@@ -209,10 +209,9 @@ sdl_video_write(int offset, unsigned int bits)
 		unsigned char *ps = screen->pixels;
 		int i, h, v;
 
-		if (offset > MAX_BITMAP_OFFSET) {
-#if 0
-		  fprintf(stderr, "sdl_video_write: "
-			  "offset too big (0x%x > 0x%x): 0x%x\n",
+		if (offset >= MAX_BITMAP_OFFSET) {
+#if 1
+		  logmsgf("SDL: offset too big (0x%x > 0x%x): 0x%x\n",
 			  offset, MAX_BITMAP_OFFSET, bits);
 #endif
 		  return;
