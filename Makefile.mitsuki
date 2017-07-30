@@ -2,22 +2,21 @@
 #
 #
 
-#DISPLAY = SDL
-DISPLAY = FB
+DISPLAY = SDL
+#DISPLAY = FB
 
 ifeq ($(DISPLAY), FB)
-DEFINES = -DDISPLAY_FB
+DEFINES = -DDISPLAY_FB -DPS2MOUSE
 endif
 
 ifeq ($(DISPLAY), SDL)
-DEFINES = -DDISPLAY_SDL
-LDISPLAY = -lSDL
+DEFINES = -DDISPLAY_SDL -DFB_WIDTH=1024 -DFB_HEIGHT=864
+LDISPLAY = -lSDL -lpthread
 DISPLAY_OBJ = sdl.o
 endif
 
-CFLAGS= -O3 -ggdb -Wall -march=pentium3 -mfpmath=sse -mmmx -msse $(DEFINES) -DPS2MOUSE 
+CFLAGS= -O3 -ggdb -Wall -march=pentium3 -mfpmath=sse -mmmx -msse $(DEFINES) -DENABLE_ENET
 # -DTRACELOG
-# -DENABLE_ENET
 # -DDEI_TRACELOG
 # -DTRACELOG2
 # -DI_PARITY_CHECK
