@@ -8,7 +8,11 @@
 #include <string.h>
 #include <signal.h>
 
-#include <SDL/SDL.h>
+#include "sdl.h"
+#include "meroko.h"
+#include "sib.h"
+
+#include <SDL.h>
 
 #if defined(FB_WIDTH) && defined(FB_HEIGHT)
 #define VIDEO_WIDTH FB_WIDTH
@@ -42,8 +46,6 @@ static DisplayState *ds = &display_state;
 #define MOUSE_EVENT_LBUTTON 1
 #define MOUSE_EVENT_MBUTTON 4
 #define MOUSE_EVENT_RBUTTON 2
-
-extern void kbd_handle_char(int sc, int sym, int updown, int shifted);
 
 void
 sdl_video_read(int offset, unsigned int *pv)
@@ -95,9 +97,6 @@ static void sdl_process_key(SDL_KeyboardEvent *ev, int updown)
 static void sdl_send_mouse_event(void)
 {
   int dx, dy, state;
-  extern unsigned char sib_mouse_motion_reg;
-  extern unsigned int sib_mouse_x_pos;
-  extern unsigned int sib_mouse_y_pos;
 
 	state = SDL_GetRelativeMouseState(&dx, &dy);
 
@@ -280,8 +279,6 @@ sdl_refresh(void)
 {
 	SDL_Event ev1, *ev = &ev1;
 	int mod_state;
-        extern unsigned int sib_mouse_x_pos;
-        extern unsigned int sib_mouse_y_pos;
 
 #if 1
 	send_accumulated_updates();

@@ -12,20 +12,18 @@
 #include <ncurses.h>
 #include <string.h>
 
+#include "raven_cpu.h"
 #include "meroko.h"
 #include "nubus.h"
 #include "localbus.h"
+#include "nubus.h"
 #include "nupi.h"
 #include "mem8.h"
 #include "sib.h"
 #include "enet.h"
 #include "raven_rom.h"
+#include "sdl.h"
 
-
-// Pick-up externals
-extern inline void nupi_clock_pulse();
-extern inline void sib_clock_pulse();
-extern inline void enet_clock_pulse();
 
 // NCurses
 WINDOW *cpu_w;
@@ -37,12 +35,6 @@ int delay_indx=0;
 int do_disp_trace=0;
 int do_tmem_trace=0;
 int trap_test=0,trap_type=0;
-
-extern int no_curses;
-extern int do_inst_trace;
-extern int do_inst_trace_count;
-extern int do_inst_log;
-extern void save_nvram();
 
 int stop_at_nubus=0;
 
@@ -349,10 +341,6 @@ uint32 Obus; // O-bus
 /* Local Bus Interface */
 int Memory_Busy;       // Local Bus Busy
 
-/* NUbus (slave-only) Interface */
-extern int Nubus_Busy; // NUbus Busy (On MEM8)
-extern void nubus_io_pulse();
-
 uint32 PI_Sources;
 int Highest_PI=0;
 int Active_PI=0;
@@ -508,7 +496,7 @@ inline uint32 ldb(uint64 value, int size, int position){
 }
 
 // ROTATION (THIS IS VERY INEFFICIENT FOR THIS! C NEEDS ROTATION OPERATORS! SOMEONE FIX THAT!)
-inline uint32 left_rotate(uint32 data, int rot){
+static inline uint32 left_rotate(uint32 data, int rot){
 #ifdef OLD_ROTATION
   uint32 x=0xFFFFFFFF;
   uint32 y;
@@ -531,7 +519,7 @@ inline uint32 left_rotate(uint32 data, int rot){
   return(result);
 }
 
-inline uint32 right_rotate(uint32 data, int rot){
+static inline uint32 right_rotate(uint32 data, int rot){
 #ifdef OLD_ROTATION
   uint32 x=0xFFFFFFFF;
   uint32 y;
@@ -554,7 +542,8 @@ inline uint32 right_rotate(uint32 data, int rot){
   return(result);
 }
 
-inline int gen_i_parity(uint64 data){
+#ifdef I_PARITY_CHECK
+static inline int gen_i_parity(uint64 data){
   uint64 x=0x1;
   uint32 y=0x0;
 
@@ -574,6 +563,7 @@ inline int gen_i_parity(uint64 data){
   */
   return(y^1); // Return ODD parity
 }
+#endif
 
 void disassemble(int loc, uint64 inst, char *disasm)
 {
@@ -877,7 +867,8 @@ void debug_disassemble_IR(){
   logmsgf(":: [%.6d A=%.8X M=%.8X O=%.8X] %s\n",loc_ctr_cnt,Abus,Mbus,Obus,disasm);
 }
 
-inline void dei_disasm(){
+#ifdef DET_TRACELOG
+static inline void dei_disasm(){
   // Trace DEI for the log. Tracing DEI to the console usually crashes the console due to spam.
   if(loc_ctr_cnt == 1504){ // At the top of the DEI jump table
     switch(Mmemory[41]){ // OPCODE-LO
@@ -1112,6 +1103,7 @@ inline void dei_disasm(){
     }
   }
 }
+#endif
 
 void raven_trap(){
   // Cause a trap to zero
@@ -1170,7 +1162,6 @@ void raven_dump(){
     return;
   }
   while(addr<0x800000){
-    extern unsigned char MEM_RAM[];
     fprintf(output,"[RAM-%.6lX] %.2X%.2X%.2X%.2X\n",addr,MEM_RAM[addr+3],MEM_RAM[addr+2],MEM_RAM[addr+1],MEM_RAM[addr+0]);
     addr += 0x04;
   }
@@ -1256,8 +1247,6 @@ void raven_dump(){
       255,255,255,0  // White
     };
     // Now at byte 62
-    // The VRAM
-    extern unsigned char VRAM[0x20000];
 
     int x=1024,y=128;
     // Write out header and such
@@ -1289,7 +1278,7 @@ void raven_dump(){
 
 // ALU operation M-A (M-A-1) 
 // Used by BYTE,JUMP
-inline void alu_sub_stub(){
+static inline void alu_sub_stub(){
   ALU_Result = Mbus - Abus - (MInst_ALU_Carry_In ? 0 : 1);
   // FIXNUM Overflow Check  
   if((((Mbus^Abus)&(Mbus^ALU_Result))&0x01000000)==0x01000000){
@@ -1297,7 +1286,7 @@ inline void alu_sub_stub(){
   }
 }
 
-inline void alu_cleanup_result(){
+static inline void alu_cleanup_result(){
   // Reduce carry-out to a flag without use of boolean type
   if((ALU_Result&0xFFFFFFFF00000000LL) != 0){ ALU_Carry_Out = 1; }	
   // Clean Output (ALU is 32 bits wide)
@@ -1307,7 +1296,7 @@ inline void alu_cleanup_result(){
   Obus = ALU_Result;
 }
 
-inline void fix_alu_carry_out()
+static inline void fix_alu_carry_out()
 {
   int cout = ((ALU_Result < Mbus ? 1 : 0) +
               ((Mbus>>31)&1) + ((Abus>>31)&1)) & 1;
@@ -1316,7 +1305,7 @@ inline void fix_alu_carry_out()
     ALU_Result |= 0x100000000LL; // Arrange for carry-out
 }
 
-inline void operate_shifter(){
+static inline void operate_shifter(){
   uint32 x=0;
   uint32 Mask = 0;
   int left_mask_index; 
@@ -1382,7 +1371,7 @@ inline void operate_shifter(){
 }
 
 // *** INTERRUPT CONTROL ***
-inline void pi_system_check(){
+static inline void pi_system_check(){
   int IMask=0;
   int PI_Level=15;
   int PI_RQ = 0;
@@ -1513,7 +1502,7 @@ void raven_nubus_io(){
 // **** LOCAL BUS INTERFACE ****
 
 /* Localbus IO pulse */
-inline void lcbus_io_pulse(){
+static inline void lcbus_io_pulse(){
   if(Memory_Busy > 0 && (LCbus_Request&0x01)==0 && LCbus_acknowledge > 0){
     // Since this is a read request, reload MD here.
     // No NUbus access is on the local bus so that no longer needs checked.
@@ -1542,7 +1531,7 @@ inline void lcbus_io_pulse(){
 }
 
 // Localbus IO stall
-inline void lcbus_io_stall(){
+static inline void lcbus_io_stall(){
   // If MEMORY-BUSY, work it..
   while(Memory_Busy > 0){
     if(Nubus_Busy){
@@ -1568,7 +1557,7 @@ inline void lcbus_io_stall(){
 }
 
 // Make an IO request via the Local Bus
-inline void lcbus_io_request(int access, uint32 address, uint32 data, int owner){
+static inline void lcbus_io_request(int access, uint32 address, uint32 data, int owner){
 
   // Wait for the bus
   lcbus_io_stall();
@@ -1766,7 +1755,7 @@ cached_lv1 = lvl_1_map_data;
   return result;
 }
 
-inline void VM_unmapped_io(int access){
+static inline void VM_unmapped_io(int access){
   // Unmapped accesses update the VM system.
   VM_resolve_address(access|0x100); // Access in unmapped mode
   // Inhibit page-faults in unmapped mode
@@ -1984,7 +1973,7 @@ void raven_disp_init(){
 
 // *** INSTRUCTION PARTS ***
 
-inline void handle_m_fcn_src(){
+static inline void handle_m_fcn_src(){
   switch(MInst_M_Source_Addr){
   case 0100: // MBS-VMA
     // lcbus_io_stall();
@@ -2155,7 +2144,7 @@ inline void handle_m_fcn_src(){
   }
 }
 
-inline void handle_m_fcn_dst(){
+static inline void handle_m_fcn_dst(){
   // Handle MF bus
   switch(MInst_Dest_Functnl){
   case 0: // NOP
@@ -2563,7 +2552,7 @@ cached_lv1 = vm_lv1_map[ldb(Obus,12,13)];
   }
 }
 
-inline void handle_condition_select(){
+static inline void handle_condition_select(){
   // Initialize
   test_true = 0;
 
@@ -2696,7 +2685,7 @@ inline void handle_condition_select(){
   }
 }
 
-inline void handle_popj_14_nxt(){
+static inline void handle_popj_14_nxt(){
   // handle popj-14-after-next
   // This is wrong somehow...
   // Check PC-After-Next
@@ -2751,7 +2740,7 @@ inline void handle_popj_14_nxt(){
   }
 }
 
-inline void handle_popj_14(){
+static inline void handle_popj_14(){
   // Check PC
   if (loc_ctr_reg & 0x4000) {          
     int chain_enable = MCregister & 0x04000000;
@@ -2798,7 +2787,7 @@ inline void handle_popj_14(){
   }
 }
 
-inline void handle_abj(){
+static inline void handle_abj(){
   switch(MInst_Abbrv_Jump){
   case 0: // A-Jump-Field-Nop
     break;
@@ -2859,7 +2848,7 @@ inline void handle_abj(){
   }
 }
 
-inline void handle_output_select(){
+static inline void handle_output_select(){
   switch(MInst_Output_Bus_Ctl){
 	    
   case 00: // Output-Bus-A-Bus
@@ -4036,7 +4025,6 @@ void raven_clockpulse(){
 
 #ifdef DISPLAY_SDL
     if ((cycle_count++ & 0x3fff) == 0) {
-      extern void display_poll(void);
       display_poll();
     }
 #endif

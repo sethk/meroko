@@ -27,13 +27,13 @@
 #include <linux/kd.h>
 #endif
 
+#include "sib.h"
+#include "mem8.h"
+#include "raven_cpu.h"
+
 #ifdef DISPLAY_SDL
-#include <SDL/SDL_keysym.h>
-extern void sdl_video_write(int offset, unsigned int bits);
-extern void sdl_video_write_byte(int offset, int bytenr, unsigned char bits);
-extern int sdl_init(unsigned long int *pscreensize, char **pframebuffer,
-                    int width, int height);
-extern void sdl_set_bow_mode(char new_mode);
+#include <SDL_keysym.h>
+#include "sdl.h"
 #endif
 
 // Set host framebuffer resolution here
@@ -216,11 +216,6 @@ unsigned char mousecmd[10];
 unsigned char mousedta[100];
 int mouseidx=0;
 #endif
-
-// Externals
-extern int cpu_die_rq;
-extern unsigned int ldb(unsigned long long value, int size, int position);
-extern inline unsigned int genparity(unsigned char data);
 
 #define sib_nubus_io_request(access, address, data) \
 	nubus_io_request((access), (address), (data), NUBUS_ID_SIB);

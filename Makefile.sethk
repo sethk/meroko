@@ -10,7 +10,7 @@ DEFINES = -DDISPLAY_FB -DPS2MOUSE
 endif
 
 ifeq ($(DISPLAY), SDL)
-DEFINES = -DDISPLAY_SDL -include SDL_main.h -DFB_WIDTH=1024 -DFB_HEIGHT=864 `sdl-config --cflags`
+DEFINES = -DDISPLAY_SDL -DFB_WIDTH=1024 -DFB_HEIGHT=864 `sdl-config --cflags`
 LDISPLAY = `sdl-config --libs`
 DISPLAY_OBJ = sdl.o
 endif

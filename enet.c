@@ -16,17 +16,15 @@
 #include <fcntl.h>
 #include <string.h>
 
+#include "enet.h"
 #include "meroko.h"
 #include "nubus.h"
+#include "raven_cpu.h"
 
 unsigned char ENET_ROM[0x1000]; // 4K ROM
 unsigned char ENET_RAM[0x8000]; // 32K BUFFER RAM
 
 #define PROM_FNAME "proms/2236430_ENET"
-
-// External stuff
-extern int cpu_die_rq;
-extern unsigned int ldb(unsigned long long value, int size, int position);
 
 // Explorer Registers
 unsigned long enet_conf_reg = 0x002C0000; // ALSO FLAG REGISTER (This value means 32K RAM + CRS + RTS) 

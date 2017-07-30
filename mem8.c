@@ -12,9 +12,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "mem8.h"
 #include "meroko.h"
 #include "nubus.h"
 #include "localbus.h"
+#include "nupi.h"
+#include "sib.h"
+#include "raven_cpu.h"
 
 #define RAM_TOP 0x800000
 #define PTY_TOP 0x100000
@@ -39,12 +43,6 @@ unsigned char mem_ptyu_bits=0; // Parity Used bits
 
 #define PROM_FNAME "proms/2243924-2_8MB"
 
-// Externals
-extern int cpu_die_rq;
-extern int breakpoint_armed; 
-extern int NUbus_error;
-extern int Memory_Busy;
-
 /* INTERNAL BUS */
 unsigned int ITbus_error=0;
 unsigned int ITbus_Address=0;
@@ -56,19 +54,9 @@ uint8 * IBD;
 unsigned char mem8_config_register = 0x0; 
 
 // Functions
-inline void mem8_itbus_io();
+static inline void mem8_itbus_io();
 void nubus_io_pulse();
 void mem8_nubus_io();
-
-// External assumptions
-extern void raven_nubus_io();
-extern void sib_nubus_io();
-extern void nupi_nubus_io();
-extern void enet_nubus_io();
-
-extern inline void nupi_clock_pulse();
-extern inline void enet_clock_pulse();
-extern inline void sib_clock_pulse();
 
 void mem8_init(){
   FILE *romfile;
@@ -99,7 +87,7 @@ inline unsigned int genparity(unsigned char data){
   return(data&1);
 }
 
-inline unsigned int storepty(unsigned long address,unsigned char data){
+static inline unsigned int storepty(unsigned long address,unsigned char data){
   unsigned long ptyadr;
   unsigned int bitcnt;
   unsigned char stgbit;
@@ -131,7 +119,7 @@ inline unsigned int storepty(unsigned long address,unsigned char data){
   return(ptybit);
 }
 
-inline unsigned char fetchpty(unsigned long address){
+static inline unsigned char fetchpty(unsigned long address){
   unsigned long ptyadr;
   unsigned int bitcnt;
   unsigned char stgbit;
@@ -143,7 +131,7 @@ inline unsigned char fetchpty(unsigned long address){
   return(stgbit&1);  
 }
 
-inline unsigned char chkpty(unsigned long address){
+static inline unsigned char chkpty(unsigned long address){
   // Parity Test
   int x,y;
   x = fetchpty(address); 
@@ -360,7 +348,7 @@ void mem8_nubus_io(){
 }
 
 /* Internal bus IO  */
-inline void mem8_itbus_io(){
+static inline void mem8_itbus_io(){
   unsigned long ITbus_Addr = (ITbus_Address&0xFFFFFF);
 
   // Handle RAM here

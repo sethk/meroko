@@ -6,6 +6,8 @@
 
 */
 
+#include "nubus.h"
+
 /* NUbus Interface */
 int Nubus_Busy;
 int NUbus_error;

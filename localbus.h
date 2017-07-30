@@ -6,6 +6,8 @@
 
 */
 
+#include "types.h"
+
 /* local bus Interface */
 extern int LCbus_error;
 extern int LCbus_acknowledge;

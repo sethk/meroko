@@ -15,8 +15,10 @@
 #include <fcntl.h>
 #include <string.h>
 
+#include "nupi.h"
 #include "meroko.h"
 #include "nubus.h"
+#include "raven_cpu.h"
 
 unsigned char NUPI_ROM[0x4000]; // 16K ROM
 unsigned char NUPI_RAM[0x1000]; // 4K MPU RAM
@@ -27,10 +29,6 @@ unsigned int nupi_unit_pointer=0;
 
 // The NuPI has a 68000 MPU on board that runs the ROM code.
 // The MPU is clocked at 10MHz.
-
-// Externals
-extern int cpu_die_rq,Nubus_Busy;
-extern unsigned int ldb(unsigned long long value, int size, int position);
 
 #define nupi_nubus_io_request(access, address, data) \
 	nubus_io_request((access), (address), (data), NUBUS_ID_NUPI);

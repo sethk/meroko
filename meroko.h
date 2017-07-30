@@ -7,12 +7,10 @@
  $Id$
 */
 
-typedef unsigned char uint8;
-typedef int int32;
-typedef unsigned int uint32;
-typedef unsigned long long uint64;
-typedef long long int64;
-
+extern int no_curses;
+extern int do_inst_trace;
+extern int do_inst_trace_count;
+extern int do_inst_log;
 
 void logmsg(char *msg);
 void logmsgf(char *fmt, ...);

@@ -8,4 +8,5 @@
 
 void nupi_init();
 void nupi_nubus_io();
+extern inline void nupi_clock_pulse();
 

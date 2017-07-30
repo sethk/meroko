@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include "meroko.h"
+#include "sib.h"
 /* Expansion cards */
 #include "raven_cpu.h"
 
@@ -33,17 +34,13 @@ WINDOW *msg_w;
 
 FILE *logfile;
 
-extern void raven_disp_init();
 struct itimerval interval;
 
 unsigned int period = 0;
 
-extern void updatetime(int arg);
-
 // Alarm
 void alarmhandler(int fnord){
   int key;
-  extern void sib_updateslow();
 
   signal(SIGALRM,&alarmhandler);
   setitimer(ITIMER_REAL,&interval,NULL);    
@@ -68,7 +65,6 @@ void alarmhandler(int fnord){
       break;
     case 'r': // tRap
       {
-        extern void raven_trap();
         raven_trap();
       } 
       break;
