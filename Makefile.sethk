@@ -59,7 +59,7 @@ meroko: $(MEROKO_OBJ)
 #sib.h: sib.c
 #	makeheaders sib.c
 
-depend::
+.depend: *.c
 	$(CC) -M $(CFLAGS) *.c > .depend
 
 include .depend
