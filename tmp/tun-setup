@@ -1,0 +1,54 @@
+#!/bin/sh
+
+if [ "$1" = "" ]; then
+    echo "usage: $0 stop"
+    echo "   or  $0 ip-of-lispm ip-at-this-end-of-tap [ tap-interface ] [ real-interface ]"
+    exit 1
+fi
+
+if [ "$1" = "stop" ]; then
+    iptables -D FORWARD -j LM-Firewall-FORWARD
+    iptables -F LM-Firewall-FORWARD
+    iptables -X LM-Firewall-FORWARD
+#     iptables -D INPUT LM-Firewall-INPUT
+#     iptables -F LM-Firewall-INPUT
+#     iptables -X LM-Firewall-INPUT
+    iptables -t nat -F
+    # see note below
+    echo 0 > /proc/sys/net/ipv4/conf/all/forwarding
+    exit
+fi
+
+GWIP=$1
+LMIP=$2
+if [ "$3" = "" ]; then
+    TUNIF=tap0
+else
+    TUNIF=$3
+fi
+if [ "$4" = "" ]; then
+    GWIF=`ip -o addr | grep 'inet ' | grep -v ': lo ' | grep -v ": $TUNIF " | awk '{ print $2 }'`
+else
+    GWIF=$4
+fi
+
+# Up the interface and let host do routing
+ifconfig $TUNIF $1 pointopoint $2 up
+# Lispm is slow/poor at responding, so set this up "permanently"
+arp -Ds $LMIP $TUNIF
+# may want to be more precise about interfaces, but this is easier
+echo 1 > /proc/sys/net/ipv4/conf/all/forwarding
+
+# Hide LM behind a nat
+iptables -t nat -A POSTROUTING -o $GWIF -j MASQUERADE
+
+# Have some firewall rules
+iptables -N LM-Firewall-FORWARD
+iptables -I FORWARD -j LM-Firewall-FORWARD
+# Outgoing from LM is OK
+iptables -A LM-Firewall-FORWARD -i $TUNIF -j LOG --log-prefix [LMin]
+iptables -A LM-Firewall-FORWARD -i $TUNIF -j ACCEPT
+# Incoming to old conns are OK
+iptables -A LM-Firewall-FORWARD -o $TUNIF -j LOG --log-prefix [LMout]
+iptables -A LM-Firewall-FORWARD -o $TUNIF -j ACCEPT
+#iptables -A LM-Firewall-FORWARD -m state --state ESTABLISHED,RELATED -i $GWIF -o $TUNIF -j ACCEPT
