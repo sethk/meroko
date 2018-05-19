@@ -12,7 +12,7 @@
 #include "meroko.h"
 #include "sib.h"
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 
 #if defined(FB_WIDTH) && defined(FB_HEIGHT)
 #define VIDEO_WIDTH FB_WIDTH

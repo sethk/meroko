@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FDBA19C71F2E789300C5DAC7 /* sib.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19B31F2E789300C5DAC7 /* sib.c */; };
+		FDBA19C81F2E789300C5DAC7 /* sdl.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19B41F2E789300C5DAC7 /* sdl.c */; };
+		FDBA19C91F2E789300C5DAC7 /* raven_cpu.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19B61F2E789300C5DAC7 /* raven_cpu.c */; };
+		FDBA19CA1F2E789300C5DAC7 /* nupi.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19B81F2E789300C5DAC7 /* nupi.c */; };
+		FDBA19CB1F2E789300C5DAC7 /* nubus.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19B91F2E789300C5DAC7 /* nubus.c */; };
+		FDBA19CC1F2E789300C5DAC7 /* mem8.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19BB1F2E789300C5DAC7 /* mem8.c */; };
+		FDBA19CD1F2E789300C5DAC7 /* enet.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19BC1F2E789300C5DAC7 /* enet.c */; };
+		FDBA19CF1F2E789300C5DAC7 /* localbus.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19C51F2E789300C5DAC7 /* localbus.c */; };
+		FDBA19D21F2E7A1A00C5DAC7 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBA19D11F2E7A1A00C5DAC7 /* SDL.framework */; };
+		FDBA19D41F2E7AFB00C5DAC7 /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBA19D31F2E7AFB00C5DAC7 /* libncurses.tbd */; };
+		FDBA19D51F2E7B9500C5DAC7 /* meroko.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19BF1F2E789300C5DAC7 /* meroko.c */; };
+		FDBA19D81F2E7D0100C5DAC7 /* SDL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FDBA19D11F2E7A1A00C5DAC7 /* SDL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FDBA19DB1F2E7DBA00C5DAC7 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBA19DA1F2E7DBA00C5DAC7 /* SDLMain.m */; };
+		FDBA19DD1F2E821B00C5DAC7 /* proms in Resources */ = {isa = PBXBuildFile; fileRef = FDBA19DC1F2E821B00C5DAC7 /* proms */; };
+		FDBA19DF1F2E827600C5DAC7 /* X1-DISKS in Resources */ = {isa = PBXBuildFile; fileRef = FDBA19DE1F2E827600C5DAC7 /* X1-DISKS */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FDBA19D71F2E7CEB00C5DAC7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FDBA19D81F2E7D0100C5DAC7 /* SDL.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FDBA19B31F2E789300C5DAC7 /* sib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sib.c; path = ../sib.c; sourceTree = "<group>"; };
+		FDBA19B41F2E789300C5DAC7 /* sdl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sdl.c; path = ../sdl.c; sourceTree = "<group>"; };
+		FDBA19B51F2E789300C5DAC7 /* sdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdl.h; path = ../sdl.h; sourceTree = "<group>"; };
+		FDBA19B61F2E789300C5DAC7 /* raven_cpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = raven_cpu.c; path = ../raven_cpu.c; sourceTree = "<group>"; };
+		FDBA19B71F2E789300C5DAC7 /* raven_cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = raven_cpu.h; path = ../raven_cpu.h; sourceTree = "<group>"; };
+		FDBA19B81F2E789300C5DAC7 /* nupi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = nupi.c; path = ../nupi.c; sourceTree = "<group>"; };
+		FDBA19B91F2E789300C5DAC7 /* nubus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = nubus.c; path = ../nubus.c; sourceTree = "<group>"; };
+		FDBA19BA1F2E789300C5DAC7 /* mem8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mem8.h; path = ../mem8.h; sourceTree = "<group>"; };
+		FDBA19BB1F2E789300C5DAC7 /* mem8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mem8.c; path = ../mem8.c; sourceTree = "<group>"; };
+		FDBA19BC1F2E789300C5DAC7 /* enet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = enet.c; path = ../enet.c; sourceTree = "<group>"; };
+		FDBA19BD1F2E789300C5DAC7 /* sib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sib.h; path = ../sib.h; sourceTree = "<group>"; };
+		FDBA19BE1F2E789300C5DAC7 /* localbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = localbus.h; path = ../localbus.h; sourceTree = "<group>"; };
+		FDBA19BF1F2E789300C5DAC7 /* meroko.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; name = meroko.c; path = ../meroko.c; sourceTree = "<group>"; tabWidth = 2; };
+		FDBA19C01F2E789300C5DAC7 /* meroko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meroko.h; path = ../meroko.h; sourceTree = "<group>"; };
+		FDBA19C11F2E789300C5DAC7 /* nupi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nupi.h; path = ../nupi.h; sourceTree = "<group>"; };
+		FDBA19C21F2E789300C5DAC7 /* nubus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nubus.h; path = ../nubus.h; sourceTree = "<group>"; };
+		FDBA19C31F2E789300C5DAC7 /* enet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enet.h; path = ../enet.h; sourceTree = "<group>"; };
+		FDBA19C41F2E789300C5DAC7 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = types.h; path = ../types.h; sourceTree = "<group>"; };
+		FDBA19C51F2E789300C5DAC7 /* localbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = localbus.c; path = ../localbus.c; sourceTree = "<group>"; };
+		FDBA19C61F2E789300C5DAC7 /* raven_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = raven_rom.h; path = ../raven_rom.h; sourceTree = "<group>"; };
+		FDBA19D11F2E7A1A00C5DAC7 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL.framework; sourceTree = "<group>"; };
+		FDBA19D31F2E7AFB00C5DAC7 /* libncurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.tbd; path = usr/lib/libncurses.tbd; sourceTree = SDKROOT; };
+		FDBA19D91F2E7DBA00C5DAC7 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
+		FDBA19DA1F2E7DBA00C5DAC7 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
+		FDBA19DC1F2E821B00C5DAC7 /* proms */ = {isa = PBXFileReference; lastKnownFileType = folder; name = proms; path = ../proms; sourceTree = SOURCE_ROOT; };
+		FDBA19DE1F2E827600C5DAC7 /* X1-DISKS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "X1-DISKS"; path = "../X1-DISKS"; sourceTree = SOURCE_ROOT; };
+		FDC227241F2DD03E004E6B77 /* Meroko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meroko.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDC227351F2DD03E004E6B77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FDC227211F2DD03E004E6B77 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBA19D41F2E7AFB00C5DAC7 /* libncurses.tbd in Frameworks */,
+				FDBA19D21F2E7A1A00C5DAC7 /* SDL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FDBA19B21F2E786600C5DAC7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FDBA19D91F2E7DBA00C5DAC7 /* SDLMain.h */,
+				FDBA19DA1F2E7DBA00C5DAC7 /* SDLMain.m */,
+				FDBA19B31F2E789300C5DAC7 /* sib.c */,
+				FDBA19B41F2E789300C5DAC7 /* sdl.c */,
+				FDBA19B51F2E789300C5DAC7 /* sdl.h */,
+				FDBA19B61F2E789300C5DAC7 /* raven_cpu.c */,
+				FDBA19B71F2E789300C5DAC7 /* raven_cpu.h */,
+				FDBA19B81F2E789300C5DAC7 /* nupi.c */,
+				FDBA19B91F2E789300C5DAC7 /* nubus.c */,
+				FDBA19BA1F2E789300C5DAC7 /* mem8.h */,
+				FDBA19BB1F2E789300C5DAC7 /* mem8.c */,
+				FDBA19BC1F2E789300C5DAC7 /* enet.c */,
+				FDBA19BD1F2E789300C5DAC7 /* sib.h */,
+				FDBA19BE1F2E789300C5DAC7 /* localbus.h */,
+				FDBA19BF1F2E789300C5DAC7 /* meroko.c */,
+				FDBA19C01F2E789300C5DAC7 /* meroko.h */,
+				FDBA19C11F2E789300C5DAC7 /* nupi.h */,
+				FDBA19C21F2E789300C5DAC7 /* nubus.h */,
+				FDBA19C31F2E789300C5DAC7 /* enet.h */,
+				FDBA19C41F2E789300C5DAC7 /* types.h */,
+				FDBA19C51F2E789300C5DAC7 /* localbus.c */,
+				FDBA19C61F2E789300C5DAC7 /* raven_rom.h */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		FDBA19D01F2E7A1900C5DAC7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FDBA19D31F2E7AFB00C5DAC7 /* libncurses.tbd */,
+				FDBA19D11F2E7A1A00C5DAC7 /* SDL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FDC2271B1F2DD03E004E6B77 = {
+			isa = PBXGroup;
+			children = (
+				FDBA19B21F2E786600C5DAC7 /* Sources */,
+				FDC227261F2DD03E004E6B77 /* Resources */,
+				FDC227251F2DD03E004E6B77 /* Products */,
+				FDBA19D01F2E7A1900C5DAC7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FDC227251F2DD03E004E6B77 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDC227241F2DD03E004E6B77 /* Meroko.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDC227261F2DD03E004E6B77 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FDC227351F2DD03E004E6B77 /* Info.plist */,
+				FDBA19DC1F2E821B00C5DAC7 /* proms */,
+				FDBA19DE1F2E827600C5DAC7 /* X1-DISKS */,
+			);
+			name = Resources;
+			path = Meroko;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FDC227231F2DD03E004E6B77 /* Meroko */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDC227381F2DD03E004E6B77 /* Build configuration list for PBXNativeTarget "Meroko" */;
+			buildPhases = (
+				FDC227201F2DD03E004E6B77 /* Sources */,
+				FDC227211F2DD03E004E6B77 /* Frameworks */,
+				FDC227221F2DD03E004E6B77 /* Resources */,
+				FDBA19D71F2E7CEB00C5DAC7 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Meroko;
+			productName = Meroko;
+			productReference = FDC227241F2DD03E004E6B77 /* Meroko.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FDC2271C1F2DD03E004E6B77 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Lunar Tokyo";
+				TargetAttributes = {
+					FDC227231F2DD03E004E6B77 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = FDC2271F1F2DD03E004E6B77 /* Build configuration list for PBXProject "Meroko" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FDC2271B1F2DD03E004E6B77;
+			productRefGroup = FDC227251F2DD03E004E6B77 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FDC227231F2DD03E004E6B77 /* Meroko */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FDC227221F2DD03E004E6B77 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBA19DD1F2E821B00C5DAC7 /* proms in Resources */,
+				FDBA19DF1F2E827600C5DAC7 /* X1-DISKS in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FDC227201F2DD03E004E6B77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBA19C71F2E789300C5DAC7 /* sib.c in Sources */,
+				FDBA19CB1F2E789300C5DAC7 /* nubus.c in Sources */,
+				FDBA19CF1F2E789300C5DAC7 /* localbus.c in Sources */,
+				FDBA19CC1F2E789300C5DAC7 /* mem8.c in Sources */,
+				FDBA19DB1F2E7DBA00C5DAC7 /* SDLMain.m in Sources */,
+				FDBA19D51F2E7B9500C5DAC7 /* meroko.c in Sources */,
+				FDBA19CD1F2E789300C5DAC7 /* enet.c in Sources */,
+				FDBA19C81F2E789300C5DAC7 /* sdl.c in Sources */,
+				FDBA19C91F2E789300C5DAC7 /* raven_cpu.c in Sources */,
+				FDBA19CA1F2E789300C5DAC7 /* nupi.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FDC227361F2DD03E004E6B77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FDC227371F2DD03E004E6B77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FDC227391F2DD03E004E6B77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					DISPLAY_SDL,
+					"FB_WIDTH=1024",
+					"FB_HEIGHT=864",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.lunar-tokyo.Meroko";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FDC2273A1F2DD03E004E6B77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					DISPLAY_SDL,
+					"FB_WIDTH=1024",
+					"FB_HEIGHT=864",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.lunar-tokyo.Meroko";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FDC2271F1F2DD03E004E6B77 /* Build configuration list for PBXProject "Meroko" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDC227361F2DD03E004E6B77 /* Debug */,
+				FDC227371F2DD03E004E6B77 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDC227381F2DD03E004E6B77 /* Build configuration list for PBXNativeTarget "Meroko" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDC227391F2DD03E004E6B77 /* Debug */,
+				FDC2273A1F2DD03E004E6B77 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FDC2271C1F2DD03E004E6B77 /* Project object */;
+}

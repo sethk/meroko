@@ -19,6 +19,7 @@
 
 #include "meroko.h"
 #include "sib.h"
+#include "sdl.h"
 /* Expansion cards */
 #include "raven_cpu.h"
 

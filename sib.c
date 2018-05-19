@@ -32,7 +32,7 @@
 #include "raven_cpu.h"
 
 #ifdef DISPLAY_SDL
-#include <SDL_keysym.h>
+#include <SDL/SDL_keysym.h>
 #include "sdl.h"
 #endif
 
@@ -497,6 +497,11 @@ map[SDLK_LSHIFT] = 0xf272; // LEFT SHIFT
   map[SDLK_LCTRL] = 0x1c; // LEFT CTRL
   map[SDLK_RALT] = 0x1b; // RIGHT ALT (META)
   map[SDLK_LALT] = 0x1b; // LEFT ALT (META)
+
+#if 1
+  map[SDLK_LMETA] = 0x1a; // LEFT CMD (META)
+  map[SDLK_RMETA] = 0x1a; // LEFT CMD (META)
+#endif
 
   map[SDLK_RSUPER] = 0x1a; // RIGHT windows (SUPER)
   map[SDLK_LSUPER] = 0x1a; // LEFT windows (SUPER)
