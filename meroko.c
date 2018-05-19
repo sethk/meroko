@@ -129,6 +129,10 @@ extern char *optarg;
 int main(int argc, char *argv[]){
    int c;
 
+	if (!isatty(STDOUT_FILENO)) {
+		no_curses++;
+	}
+
   while ((c = getopt(argc, argv, "nlt")) != -1) {
     switch (c) {
     case 'n':
